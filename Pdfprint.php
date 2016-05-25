@@ -12,18 +12,17 @@ class Pdfprint extends \yii\base\Widget
   public $iframeId = 'iframeprint';
 
   public $elementClass = '.btn-print';
-
   public function init(){
     $this->registerJs();
   }
 
-  public function run()
-  {
-      return Html::tag('iframe',null ,['id' => $this->id, 'style'=>'display:none;']);
-  }
+    public function run()
+    {
+        return Html::tag('iframe',null ,['id' => $this->id, 'style'=>'display:none;']);
+    }
 
-  public function registerJs()
-  {
+    public function registerJs()
+ {
 $js = <<<JS
 
 $(document).on('click', '{$this->elementClass}', function(e){
