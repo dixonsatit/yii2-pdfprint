@@ -29,5 +29,5 @@ Usage
 Once the extension is installed, simply use it in your code by  :
 
 ```php
-<?= \dixonstarter\pdfprint\AutoloadExample::widget(); ?>
+<?= \dixonstarter\pdfprint\Pdfprint::widget();?>
 ```
