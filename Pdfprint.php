@@ -25,37 +25,85 @@ class Pdfprint extends \yii\base\Widget
     public function run()
     {
         NprogressAsset::register($this->getView());
-        return Html::tag('iframe',null ,['id' => $this->iframeId, 'style'=>'display:none;']);
+        //return Html::tag('iframe',null ,['id' => $this->iframeId, 'style'=>'display:none;']);
     }
 
     public function registerJs()
- {
+    {
+
 $js = <<<JS
+
 /**
- * @referent https://www.sitepoint.com/load-pdf-iframe-call-print/
+ *  ================================================================
+ *  Yii2 PDF Print
+ *  ================================================================
+ *  @author Sathit Seethaphon <dixonsatit@gmail.com>
+ *  @referent https://www.sitepoint.com/load-pdf-iframe-call-print/
  */
+
 $(document).on('click', '{$this->elementClass}', function(e){
   e.preventDefault();
   NProgress.start();
-  _pdfprint($(this).data('url'));
+  _createIframe($(this).data('url'));
+  //_pdfprint($(this).data('url'));
 });
+
+function _createIframe(url){
+  _removeIframe();
+  var d = new Date();
+  var n = d.getTime();
+  var iframe = document.createElement('iframe');
+      iframe.className = 'pdfprint';
+      iframe.style.display = 'none';
+      iframe.src = url;
+      iframe.id = "{$this->iframeId}"+n;
+
+  if(iframe.addEventListener){
+    iframe.addEventListener('load', _onload, true);
+  }
+  else if(iframe.attachEvent){
+    iframe.attachEvent('onload',_onload);
+  }
+  document.body.appendChild(iframe);
+}
+
+function _removeIframe(){
+  var iframes = document.getElementsByClassName("pdfprint");
+  console.log(typeof iframes);
+  console.log(iframes);
+  for (var key in iframes) {
+    if (iframes.hasOwnProperty(key)) {
+       document.getElementById(iframes[key].id).remove();
+    }
+  }
+}
+
+function _onload(e){
+  console.info('load pdf to print!',this.id);
+  var PDF = document.getElementById(this.id);
+      PDF.focus();
+      PDF.contentWindow.print();
+      NProgress.done();
+}
 
 function _pdfprint(url)
 {
-    var iframeId = "{$this->iframeId}",
-    iframe = $("iframe#{$this->iframeId}");
-    iframe.attr('src', url);
-    iframe.load(function() {
-        _callPdfPrint(iframeId);
-        NProgress.done();
-    });
+  var iframe = document.getElementById("{$this->iframeId}");
+  var ifWin = iframe.contentWindow || iframe;
+  iframe.src = url;
+  iframe.onload = function(){
+    try {
+      ifWin.focus();
+      ifWin.print();
+    }catch(e) {
+      console.log(e);
+    }
+    NProgress.done();
+  }
 }
-
-function _callPdfPrint(iframeId) {
-    var PDF = document.getElementById(iframeId);
-    PDF.focus();
-    PDF.contentWindow.print();
-}
+/**
+ * ===== End: Yii2 PDF Pint ========================================================================
+ */
 JS;
      $this->view->registerJs($js, View::POS_READY, 'dixonstarter-pdfprint');
  }
