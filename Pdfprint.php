@@ -4,29 +4,39 @@ namespace dixonstarter\pdfprint;
 
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\View;
 /**
  * This is just an example.
  */
 class Pdfprint extends \yii\base\Widget
 {
-  public $iframeId = 'iframeprint';
+  public $iframeId;
 
   public $elementClass = '.btn-print';
+
   public function init(){
+    parent::init();
+    if($this->iframeId==null){
+      $this->iframeId = 'pdfprint-'.$this->id;
+    }
     $this->registerJs();
   }
 
     public function run()
     {
-        return Html::tag('iframe',null ,['id' => $this->id, 'style'=>'display:none;']);
+        NprogressAsset::register($this->getView());
+        return Html::tag('iframe',null ,['id' => $this->iframeId, 'style'=>'display:none;']);
     }
 
     public function registerJs()
  {
 $js = <<<JS
-
+/**
+ * @referent https://www.sitepoint.com/load-pdf-iframe-call-print/
+ */
 $(document).on('click', '{$this->elementClass}', function(e){
   e.preventDefault();
+  NProgress.start();
   _pdfprint($(this).data('url'));
 });
 
@@ -37,9 +47,10 @@ function _pdfprint(url)
     iframe.attr('src', url);
     iframe.load(function() {
         _callPdfPrint(iframeId);
+        NProgress.done();
     });
 }
-//initiates print once content has been loaded into iframe
+
 function _callPdfPrint(iframeId) {
     var PDF = document.getElementById(iframeId);
     PDF.focus();
