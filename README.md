@@ -8,6 +8,8 @@ Installation
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
+![ezgif.com-video-to-gif.gif](ezgif.com-video-to-gif.gif)
+
 Either run
 
 ```
