@@ -17,7 +17,8 @@
         }
     ],
     "require": {
-        "yiisoft/yii2": "*"
+        "yiisoft/yii2": "*",
+        "bower-asset/nprogress":"*"
     },
     "autoload": {
         "psr-4": {
