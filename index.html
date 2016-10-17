@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Yii2-pdfprint by dixonsatit</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Yii2-pdfprint</h1>
+      <h2 class="project-tagline"> Load PDF into iframe and call print</h2>
+      <a href="https://github.com/dixonsatit/yii2-pdfprint" class="btn">View on GitHub</a>
+      <a href="https://github.com/dixonsatit/yii2-pdfprint/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/dixonsatit/yii2-pdfprint/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="pdfprint" class="anchor" href="#pdfprint" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>PdfPrint</h1>
+
+<p>Load PDF into iframe and call print.</p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>The preferred way to install this extension is through <a href="http://getcomposer.org/download/">composer</a>.</p>
+
+<p>Either run</p>
+
+<pre><code>php composer.phar require --prefer-dist dixonstarter/yii2-pdfprint "*"
+</code></pre>
+
+<p>or add</p>
+
+<pre><code>"dixonstarter/yii2-pdfprint": "*"
+</code></pre>
+
+<p>to the require section of your <code>composer.json</code> file.</p>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Once the extension is installed, simply use it in your code by  :</p>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-k">&lt;</span>?<span class="pl-k">=</span> <span class="pl-c1">\dixonstarter\pdfprint\</span><span class="pl-c1">Pdfprint</span><span class="pl-k">::</span>widget([</span>
+<span class="pl-s1">  <span class="pl-s"><span class="pl-pds">'</span>elementClass<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>.btn-pdfprint<span class="pl-pds">'</span></span></span>
+<span class="pl-s1">]);</span><span class="pl-pse"><span class="pl-s1">?</span>&gt;</span></pre></div>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">a</span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>url/test.pdf<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>btn-pdfprint<span class="pl-pds">"</span></span>&gt;open&lt;/<span class="pl-ent">a</span>&gt;</pre></div>
+
+<p>in GridView</p>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-k">&lt;</span>?<span class="pl-k">=</span> <span class="pl-c1">GridView</span><span class="pl-k">::</span>widget([</span>
+<span class="pl-s1">        <span class="pl-s"><span class="pl-pds">'</span>dataProvider<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-smi">$dataProvider</span>,</span>
+<span class="pl-s1">        <span class="pl-s"><span class="pl-pds">'</span>filterModel<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-smi">$searchModel</span>,</span>
+<span class="pl-s1">        <span class="pl-s"><span class="pl-pds">'</span>columns<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> [</span>
+<span class="pl-s1">            [</span>
+<span class="pl-s1">              <span class="pl-s"><span class="pl-pds">'</span>class<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>yii\grid\SerialColumn<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">              <span class="pl-s"><span class="pl-pds">'</span>options<span class="pl-pds">'</span></span><span class="pl-k">=&gt;</span>[<span class="pl-s"><span class="pl-pds">'</span>style<span class="pl-pds">'</span></span><span class="pl-k">=&gt;</span><span class="pl-s"><span class="pl-pds">'</span>width:30px;<span class="pl-pds">'</span></span>],</span>
+<span class="pl-s1">              <span class="pl-s"><span class="pl-pds">'</span>contentOptions<span class="pl-pds">'</span></span><span class="pl-k">=&gt;</span>[<span class="pl-s"><span class="pl-pds">'</span>class<span class="pl-pds">'</span></span><span class="pl-k">=&gt;</span><span class="pl-s"><span class="pl-pds">'</span>text-center<span class="pl-pds">'</span></span>]</span>
+<span class="pl-s1">            ],</span>
+<span class="pl-s1">            <span class="pl-c">// use in column</span></span>
+<span class="pl-s1">            [</span>
+<span class="pl-s1">              <span class="pl-s"><span class="pl-pds">'</span>attribute<span class="pl-pds">'</span></span><span class="pl-k">=&gt;</span><span class="pl-s"><span class="pl-pds">'</span>value<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">              <span class="pl-s"><span class="pl-pds">'</span>format<span class="pl-pds">'</span></span><span class="pl-k">=&gt;</span><span class="pl-s"><span class="pl-pds">'</span>html<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">              <span class="pl-s"><span class="pl-pds">'</span>value<span class="pl-pds">'</span></span><span class="pl-k">=&gt;</span><span class="pl-k">function</span>(<span class="pl-smi">$model</span>){</span>
+<span class="pl-s1">                <span class="pl-k">return</span> <span class="pl-c1">Html</span><span class="pl-k">::</span>a(<span class="pl-s"><span class="pl-pds">'</span>&lt;i class="glyphicon glyphicon-print"&gt;&lt;/i&gt;<span class="pl-pds">'</span></span>,[<span class="pl-s"><span class="pl-pds">'</span>pdf/url<span class="pl-pds">'</span></span>],[<span class="pl-s"><span class="pl-pds">'</span>class<span class="pl-pds">'</span></span><span class="pl-k">=&gt;</span><span class="pl-s"><span class="pl-pds">'</span>btn-pdfprint btn btn-default<span class="pl-pds">'</span></span>,<span class="pl-s"><span class="pl-pds">'</span>data-pjax<span class="pl-pds">'</span></span><span class="pl-k">=&gt;</span><span class="pl-s"><span class="pl-pds">'</span>0<span class="pl-pds">'</span></span>]);</span>
+<span class="pl-s1">              }</span>
+<span class="pl-s1">            ],</span>
+<span class="pl-s1">            <span class="pl-c">// use in ActionColumn</span></span>
+<span class="pl-s1">            [</span>
+<span class="pl-s1">              <span class="pl-s"><span class="pl-pds">'</span>class<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>yii\grid\ActionColumn<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">              <span class="pl-s"><span class="pl-pds">'</span>header<span class="pl-pds">'</span></span><span class="pl-k">=&gt;</span><span class="pl-s"><span class="pl-pds">'</span>Actions<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">              <span class="pl-s"><span class="pl-pds">'</span>options<span class="pl-pds">'</span></span><span class="pl-k">=&gt;</span>[<span class="pl-s"><span class="pl-pds">'</span>style<span class="pl-pds">'</span></span><span class="pl-k">=&gt;</span><span class="pl-s"><span class="pl-pds">'</span>width:150px;<span class="pl-pds">'</span></span>],</span>
+<span class="pl-s1">              <span class="pl-s"><span class="pl-pds">'</span>buttonOptions<span class="pl-pds">'</span></span><span class="pl-k">=&gt;</span>[<span class="pl-s"><span class="pl-pds">'</span>class<span class="pl-pds">'</span></span><span class="pl-k">=&gt;</span><span class="pl-s"><span class="pl-pds">'</span>btn btn-default<span class="pl-pds">'</span></span>],</span>
+<span class="pl-s1">              <span class="pl-s"><span class="pl-pds">'</span>template<span class="pl-pds">'</span></span><span class="pl-k">=&gt;</span><span class="pl-s"><span class="pl-pds">'</span>&lt;div class="btn-group btn-group-sm text-center" role="group"&gt;{print} {view} {update} {delete} &lt;/div&gt;<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">              <span class="pl-s"><span class="pl-pds">'</span>buttons<span class="pl-pds">'</span></span><span class="pl-k">=&gt;</span>[</span>
+<span class="pl-s1">                <span class="pl-s"><span class="pl-pds">'</span>print<span class="pl-pds">'</span></span><span class="pl-k">=&gt;</span><span class="pl-k">function</span>(<span class="pl-smi">$url</span>,<span class="pl-smi">$model</span>){</span>
+<span class="pl-s1">                  <span class="pl-k">return</span> <span class="pl-c1">Html</span><span class="pl-k">::</span>a(<span class="pl-s"><span class="pl-pds">'</span>&lt;i class="glyphicon glyphicon-print"&gt;&lt;/i&gt;<span class="pl-pds">'</span></span>,[<span class="pl-s"><span class="pl-pds">'</span>pdf/url<span class="pl-pds">'</span></span>],[<span class="pl-s"><span class="pl-pds">'</span>class<span class="pl-pds">'</span></span><span class="pl-k">=&gt;</span><span class="pl-s"><span class="pl-pds">'</span>btn-pdfprint btn btn-default<span class="pl-pds">'</span></span>,<span class="pl-s"><span class="pl-pds">'</span>data-pjax<span class="pl-pds">'</span></span><span class="pl-k">=&gt;</span><span class="pl-s"><span class="pl-pds">'</span>0<span class="pl-pds">'</span></span>]);</span>
+<span class="pl-s1">                }</span>
+<span class="pl-s1">              ]</span>
+<span class="pl-s1">            ],</span>
+<span class="pl-s1">        ],</span>
+<span class="pl-s1">    ]); </span><span class="pl-pse"><span class="pl-s1">?</span>&gt;</span></pre></div>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/dixonsatit/yii2-pdfprint">Yii2-pdfprint</a> is maintained by <a href="https://github.com/dixonsatit">dixonsatit</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
